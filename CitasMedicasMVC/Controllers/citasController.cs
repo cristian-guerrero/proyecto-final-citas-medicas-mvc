@@ -10,107 +10,116 @@ using CitasMedicasMVC;
 
 namespace CitasMedicasMVC.Controllers
 {
-    public class usuariosController : Controller
+    public class citasController : Controller
     {
         private citas_medicasEntities2 db = new citas_medicasEntities2();
 
-        // GET: usuarios
+        // GET: citas
         public ActionResult Index()
         {
-            return View(db.usuarios.ToList());
+            var citas = db.citas.Include(c => c.usuarios).Include(c => c.usuarios1);
+            return View(citas.ToList());
         }
 
-        // GET: usuarios/Details/5
+        // GET: citas/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            usuarios usuarios = db.usuarios.Find(id);
-            if (usuarios == null)
+            citas citas = db.citas.Find(id);
+            if (citas == null)
             {
                 return HttpNotFound();
             }
-            return View(usuarios);
+            return View(citas);
         }
 
-        // GET: usuarios/Create
+        // GET: citas/Create
         public ActionResult Create()
         {
+            ViewBag.paciente = new SelectList(db.usuarios, "id", "nombres");
+            ViewBag.medico = new SelectList(db.usuarios, "id", "nombres");
             return View();
         }
 
-        // POST: usuarios/Create
+        // POST: citas/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "id,nombres,apellidos,perfil,direccion,telefono,usuario,password")] usuarios usuarios)
+        public ActionResult Create([Bind(Include = "id,medico,paciente,fecha,estado")] citas citas)
         {
             if (ModelState.IsValid)
             {
-                db.usuarios.Add(usuarios);
+                db.citas.Add(citas);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(usuarios);
+            ViewBag.paciente = new SelectList(db.usuarios, "id", "nombres", citas.paciente);
+            ViewBag.medico = new SelectList(db.usuarios, "id", "nombres", citas.medico);
+            return View(citas);
         }
 
-        // GET: usuarios/Edit/5
+        // GET: citas/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            usuarios usuarios = db.usuarios.Find(id);
-            if (usuarios == null)
+            citas citas = db.citas.Find(id);
+            if (citas == null)
             {
                 return HttpNotFound();
             }
-            return View(usuarios);
+            ViewBag.paciente = new SelectList(db.usuarios, "id", "nombres", citas.paciente);
+            ViewBag.medico = new SelectList(db.usuarios, "id", "nombres", citas.medico);
+            return View(citas);
         }
 
-        // POST: usuarios/Edit/5
+        // POST: citas/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "id,nombres,apellidos,perfil,direccion,telefono,usuario,password")] usuarios usuarios)
+        public ActionResult Edit([Bind(Include = "id,medico,paciente,fecha,estado")] citas citas)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(usuarios).State = EntityState.Modified;
+                db.Entry(citas).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(usuarios);
+            ViewBag.paciente = new SelectList(db.usuarios, "id", "nombres", citas.paciente);
+            ViewBag.medico = new SelectList(db.usuarios, "id", "nombres", citas.medico);
+            return View(citas);
         }
 
-        // GET: usuarios/Delete/5
+        // GET: citas/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            usuarios usuarios = db.usuarios.Find(id);
-            if (usuarios == null)
+            citas citas = db.citas.Find(id);
+            if (citas == null)
             {
                 return HttpNotFound();
             }
-            return View(usuarios);
+            return View(citas);
         }
 
-        // POST: usuarios/Delete/5
+        // POST: citas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            usuarios usuarios = db.usuarios.Find(id);
-            db.usuarios.Remove(usuarios);
+            citas citas = db.citas.Find(id);
+            db.citas.Remove(citas);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

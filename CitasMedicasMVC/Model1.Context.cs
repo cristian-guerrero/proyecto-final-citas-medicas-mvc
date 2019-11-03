@@ -13,10 +13,10 @@ namespace CitasMedicasMVC
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class citas_medicasEntities1 : DbContext
+    public partial class citas_medicasEntities2 : DbContext
     {
-        public citas_medicasEntities1()
-            : base("name=citas_medicasEntities1")
+        public citas_medicasEntities2()
+            : base("name=citas_medicasEntities2")
         {
         }
     

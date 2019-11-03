@@ -120,7 +120,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="citas_medicasEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="citas_medicasEntities2" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="citas" EntityType="Self.citas" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" />
           <AssociationSet Name="fk_citas_usuarios_1" Association="Self.fk_citas_usuarios_1">
@@ -137,7 +137,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="citas_medicasModelStoreContainer" CdmEntityContainer="citas_medicasEntities1">
+        <EntityContainerMapping StorageEntityContainer="citas_medicasModelStoreContainer" CdmEntityContainer="citas_medicasEntities2">
           <EntitySetMapping Name="citas">
             <EntityTypeMapping TypeName="citas_medicasModel.citas">
               <MappingFragment StoreEntitySet="citas">

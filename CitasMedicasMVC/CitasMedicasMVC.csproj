@@ -131,6 +131,7 @@
     <Compile Include="citas.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\citasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\usuariosController.cs" />
     <Compile Include="Global.asax.cs">
