@@ -4,9 +4,10 @@ CREATE TABLE [usuarios] (
 [id] int NOT NULL,
 [nombres] varchar(255) NULL,
 [apellidos] varchar(255) NULL,
-[perfil] varchar(255) NULL,
+[perfil] varchar(255) NOT NULL 
+CHECK (perfil in ('medico','paciente','administrador')),
 [direccion] varchar(255) NULL,
-[telefono] int NULL,
+[telefono]  varchar(255) NULL,
 [usuario] varchar(255) NULL,
 [password] varchar(255) NULL,
 PRIMARY KEY ([id]) 

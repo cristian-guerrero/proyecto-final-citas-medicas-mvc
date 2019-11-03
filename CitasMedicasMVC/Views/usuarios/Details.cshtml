@@ -1,10 +1,10 @@
 ﻿@model CitasMedicasMVC.usuarios
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles";
 }
 
-<h2>Details</h2>
+<h2>Detalles</h2>
 
 <div>
     <h4>usuarios</h4>
@@ -57,7 +57,7 @@
         <dd>
             @Html.DisplayFor(model => model.usuario)
         </dd>
-
+<!--
         <dt>
             @Html.DisplayNameFor(model => model.password)
         </dt>
@@ -65,10 +65,10 @@
         <dd>
             @Html.DisplayFor(model => model.password)
         </dd>
-
+    -->
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Editar", "Edit", new { id = Model.id }) |
+    @Html.ActionLink("Volver a la lista", "Index")
 </p>

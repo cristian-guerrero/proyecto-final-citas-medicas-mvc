@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<CitasMedicasMVC.citas>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de Citas";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nueva", "Create")
 </p>
 <table class="table">
     <tr>
@@ -26,26 +26,27 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.fecha)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.estado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.usuarios.nombres)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.usuarios1.nombres)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.usuarios.nombres)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.usuarios1.nombres)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
+                @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+            </td>
+        </tr>
+    }
 
 </table>

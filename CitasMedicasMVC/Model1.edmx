@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="citas_medicasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="citas_medicasModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="citas">
           <Key>
             <PropertyRef Name="id" />
@@ -22,7 +22,7 @@
           <Property Name="id" Type="int" Nullable="false" />
           <Property Name="nombres" Type="varchar" MaxLength="255" />
           <Property Name="apellidos" Type="varchar" MaxLength="255" />
-          <Property Name="perfil" Type="varchar" MaxLength="255" />
+          <Property Name="perfil" Type="varchar" MaxLength="255" Nullable="false" />
           <Property Name="direccion" Type="varchar" MaxLength="255" />
           <Property Name="telefono" Type="varchar" MaxLength="255" />
           <Property Name="usuario" Type="varchar" MaxLength="255" />
@@ -64,11 +64,22 @@
             <End Role="citas" EntitySet="citas" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="citas_medicasModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="citas_medicasEntities2" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="citas" EntityType="citas_medicasModel.citas" />
+          <EntitySet Name="usuarios" EntityType="citas_medicasModel.usuarios" />
+          <AssociationSet Name="fk_citas_usuarios_1" Association="citas_medicasModel.fk_citas_usuarios_1">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="citas" EntitySet="citas" />
+          </AssociationSet>
+          <AssociationSet Name="fk_citas_usuarios_2" Association="citas_medicasModel.fk_citas_usuarios_2">
+            <End Role="usuarios" EntitySet="usuarios" />
+            <End Role="citas" EntitySet="citas" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="citas">
           <Key>
             <PropertyRef Name="id" />
@@ -78,8 +89,8 @@
           <Property Name="paciente" Type="Int32" />
           <Property Name="fecha" Type="DateTime" Precision="7" />
           <Property Name="estado" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="usuarios" Relationship="Self.fk_citas_usuarios_1" FromRole="citas" ToRole="usuarios" />
-          <NavigationProperty Name="usuarios1" Relationship="Self.fk_citas_usuarios_2" FromRole="citas" ToRole="usuarios" />
+          <NavigationProperty Name="usuarios" Relationship="citas_medicasModel.fk_citas_usuarios_1" FromRole="citas" ToRole="usuarios" />
+          <NavigationProperty Name="usuarios1" Relationship="citas_medicasModel.fk_citas_usuarios_2" FromRole="citas" ToRole="usuarios" />
         </EntityType>
         <EntityType Name="usuarios">
           <Key>
@@ -88,17 +99,17 @@
           <Property Name="id" Type="Int32" Nullable="false" />
           <Property Name="nombres" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="apellidos" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="perfil" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="perfil" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="direccion" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="telefono" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="usuario" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="citas" Relationship="Self.fk_citas_usuarios_1" FromRole="usuarios" ToRole="citas" />
-          <NavigationProperty Name="citas1" Relationship="Self.fk_citas_usuarios_2" FromRole="usuarios" ToRole="citas" />
+          <NavigationProperty Name="citas" Relationship="citas_medicasModel.fk_citas_usuarios_1" FromRole="usuarios" ToRole="citas" />
+          <NavigationProperty Name="citas1" Relationship="citas_medicasModel.fk_citas_usuarios_2" FromRole="usuarios" ToRole="citas" />
         </EntityType>
         <Association Name="fk_citas_usuarios_1">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="0..1" />
-          <End Role="citas" Type="Self.citas" Multiplicity="*" />
+          <End Type="citas_medicasModel.usuarios" Role="usuarios" Multiplicity="0..1" />
+          <End Type="citas_medicasModel.citas" Role="citas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="usuarios">
               <PropertyRef Name="id" />
@@ -109,8 +120,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="fk_citas_usuarios_2">
-          <End Role="usuarios" Type="Self.usuarios" Multiplicity="0..1" />
-          <End Role="citas" Type="Self.citas" Multiplicity="*" />
+          <End Type="citas_medicasModel.usuarios" Role="usuarios" Multiplicity="0..1" />
+          <End Type="citas_medicasModel.citas" Role="citas" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="usuarios">
               <PropertyRef Name="id" />
@@ -120,19 +131,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="citas_medicasEntities2" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="citas" EntityType="Self.citas" />
-          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
-          <AssociationSet Name="fk_citas_usuarios_1" Association="Self.fk_citas_usuarios_1">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="citas" EntitySet="citas" />
-          </AssociationSet>
-          <AssociationSet Name="fk_citas_usuarios_2" Association="Self.fk_citas_usuarios_2">
-            <End Role="usuarios" EntitySet="usuarios" />
-            <End Role="citas" EntitySet="citas" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -141,25 +140,25 @@
           <EntitySetMapping Name="citas">
             <EntityTypeMapping TypeName="citas_medicasModel.citas">
               <MappingFragment StoreEntitySet="citas">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="medico" ColumnName="medico" />
-                <ScalarProperty Name="paciente" ColumnName="paciente" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="paciente" ColumnName="paciente" />
+                <ScalarProperty Name="medico" ColumnName="medico" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="usuarios">
             <EntityTypeMapping TypeName="citas_medicasModel.usuarios">
               <MappingFragment StoreEntitySet="usuarios">
-                <ScalarProperty Name="id" ColumnName="id" />
-                <ScalarProperty Name="nombres" ColumnName="nombres" />
-                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
-                <ScalarProperty Name="perfil" ColumnName="perfil" />
-                <ScalarProperty Name="direccion" ColumnName="direccion" />
-                <ScalarProperty Name="telefono" ColumnName="telefono" />
-                <ScalarProperty Name="usuario" ColumnName="usuario" />
                 <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="perfil" ColumnName="perfil" />
+                <ScalarProperty Name="apellidos" ColumnName="apellidos" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="id" ColumnName="id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

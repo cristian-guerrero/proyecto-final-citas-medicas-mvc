@@ -15,8 +15,8 @@ namespace CitasMedicasMVC.Controllers
         private citas_medicasEntities2 db = new citas_medicasEntities2();
 
         // GET: citas
-        public ActionResult Index()
-        {
+        public ActionResult Index(){
+      Session["perfil"] = "medico";
             var citas = db.citas.Include(c => c.usuarios).Include(c => c.usuarios1);
             return View(citas.ToList());
         }

@@ -1,13 +1,13 @@
 ﻿@model IEnumerable<CitasMedicasMVC.usuarios>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lista de usuarios";
 }
 
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Crear Nuevo", "Create")
 </p>
 <table class="table">
     <tr>
@@ -59,9 +59,9 @@
             @Html.DisplayFor(modelItem => item.password)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id })
+            @Html.ActionLink("Editar", "Edit", new { id=item.id }) |
+            @Html.ActionLink("Detalles", "Details", new { id=item.id }) |
+            @Html.ActionLink("Eliminar", "Delete", new { id=item.id })
         </td>
     </tr>
 }
