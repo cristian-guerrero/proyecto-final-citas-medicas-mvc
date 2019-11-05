@@ -8,23 +8,42 @@ namespace CitasMedicasMVC.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+    public ActionResult Index()
         {
-            return View();
+
+      if(notSession())
+      return RedirectToAction("Index", "Login");
+
+      return View();
         }
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+      ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+      ViewBag.Message = "Your contact page.";
 
             return View();
         }
+
+
+
+    private bool notSession()
+    {
+      return Session["user_name"] == null && Session["user_profile"] == null;
+    
+      
     }
+
+
+  }
 }

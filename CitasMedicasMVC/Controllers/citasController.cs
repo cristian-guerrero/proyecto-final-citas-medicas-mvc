@@ -16,15 +16,23 @@ namespace CitasMedicasMVC.Controllers
 
         // GET: citas
         public ActionResult Index(){
-      Session["perfil"] = "medico";
-            var citas = db.citas.Include(c => c.usuarios).Include(c => c.usuarios1);
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+
+      //Session["perfil"] = "medico";
+      var citas = db.citas.Include(c => c.usuarios).Include(c => c.usuarios1);
             return View(citas.ToList());
         }
 
         // GET: citas/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+
+      if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -39,7 +47,10 @@ namespace CitasMedicasMVC.Controllers
         // GET: citas/Create
         public ActionResult Create()
         {
-            ViewBag.paciente = new SelectList(db.usuarios, "id", "nombres");
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+      ViewBag.paciente = new SelectList(db.usuarios, "id", "nombres");
             ViewBag.medico = new SelectList(db.usuarios, "id", "nombres");
             return View();
         }
@@ -66,7 +77,10 @@ namespace CitasMedicasMVC.Controllers
         // GET: citas/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+      if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -101,7 +115,10 @@ namespace CitasMedicasMVC.Controllers
         // GET: citas/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+      if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -132,5 +149,12 @@ namespace CitasMedicasMVC.Controllers
             }
             base.Dispose(disposing);
         }
+
+    private bool notSession()
+    {
+      return Session["user_name"] == null && Session["user_profile"] == null;
+
+
     }
+  }
 }

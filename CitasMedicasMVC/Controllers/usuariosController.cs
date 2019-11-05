@@ -17,13 +17,19 @@ namespace CitasMedicasMVC.Controllers
         // GET: usuarios
         public ActionResult Index()
         {
-            return View(db.usuarios.ToList());
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+      return View(db.usuarios.ToList());
         }
 
         // GET: usuarios/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+      if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -38,7 +44,10 @@ namespace CitasMedicasMVC.Controllers
         // GET: usuarios/Create
         public ActionResult Create()
         {
-            return View();
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+      return View();
         }
 
         // POST: usuarios/Create
@@ -61,7 +70,10 @@ namespace CitasMedicasMVC.Controllers
         // GET: usuarios/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+      if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -92,7 +104,10 @@ namespace CitasMedicasMVC.Controllers
         // GET: usuarios/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+      if (notSession())
+        return RedirectToAction("Index", "Login");
+
+      if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -123,5 +138,12 @@ namespace CitasMedicasMVC.Controllers
             }
             base.Dispose(disposing);
         }
+
+    private bool notSession()
+    {
+      return Session["user_name"] == null && Session["user_profile"] == null;
+
+
     }
+  }
 }
