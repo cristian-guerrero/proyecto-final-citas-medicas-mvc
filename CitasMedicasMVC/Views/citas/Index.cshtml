@@ -7,7 +7,11 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Crear Nueva", "Create")
+    @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "paciente")
+    {
+        @Html.ActionLink("Crear Nueva", "Create")
+    }
+
 </p>
 <table class="table">
     <tr>
@@ -43,8 +47,10 @@
             </td>
             <td>
                 @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.id }) |
-                @Html.ActionLink("Eliminar", "Delete", new { id = item.id })
+                @Html.ActionLink("Detalles", "Details", new { id = item.id }) 
+                @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "paciente")
+                { @Html.ActionLink(" | Eliminar", "Delete", new { id = item.id })}
+
             </td>
         </tr>
     }

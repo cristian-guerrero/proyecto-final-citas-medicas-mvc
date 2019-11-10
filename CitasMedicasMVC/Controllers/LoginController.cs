@@ -38,6 +38,7 @@ namespace CitasMedicasMVC.Controllers
       .FirstOrDefault();
       if (ob != null)
       {
+        Session["_user_id"] = ob.id;
         Session["user_name"] = ob.usuario.ToString();
         Session["user_profile"] = ob.perfil.ToString();
         return RedirectToAction("Index", "Home");

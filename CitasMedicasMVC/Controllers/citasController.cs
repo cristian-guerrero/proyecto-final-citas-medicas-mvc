@@ -52,6 +52,7 @@ namespace CitasMedicasMVC.Controllers
 
       ViewBag.paciente = new SelectList(db.usuarios, "id", "nombres");
             ViewBag.medico = new SelectList(db.usuarios, "id", "nombres");
+
             return View();
         }
 
@@ -62,6 +63,7 @@ namespace CitasMedicasMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "id,medico,paciente,fecha,estado")] citas citas)
         {
+      citas.paciente = (int)Session["_user_id"];
             if (ModelState.IsValid)
             {
                 db.citas.Add(citas);
