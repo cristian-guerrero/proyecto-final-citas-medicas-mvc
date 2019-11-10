@@ -36,7 +36,11 @@
         <div class="form-group">
             @Html.LabelFor(model => model.perfil, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.perfil, new { htmlAttributes = new { @class = "form-control" } })
+                <select class="form-control" id="perfil" name="perfil">
+                    <option value="paciente">Paciente</option>
+                    <option value="medico">Medico</option>
+                    <option value="administrador">Administrador</option>
+                </select>
                 @Html.ValidationMessageFor(model => model.perfil, "", new { @class = "text-danger" })
             </div>
         </div>

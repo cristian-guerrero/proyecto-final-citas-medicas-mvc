@@ -10,72 +10,90 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>citas</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.id)
 
-    @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "paciente")
-    {
+    <div class="form-horizontal">
+        <h4>citas</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.id)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.medico, "medico", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("medico", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.medico, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <!--
-        <div class="form-group">
-            @Html.LabelFor(model => model.paciente, "paciente", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("paciente", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.paciente, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        -->
-        <div class="form-group">
-            @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "paciente")
+        {
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.estado, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.medico, "medico", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("medico", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.medico, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-    }
+            <!--
+            <div class="form-group">
+                @Html.LabelFor(model => model.paciente, "paciente", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownList("paciente", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.paciente, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.fecha, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.fecha, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-    @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "medico")
-    {
-        <!-- detalles -->
-        <div class="form-group">
-            @Html.LabelFor(model => model.detalles, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.detalles, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.detalles, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.estado, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <select class="form-control" id="estado" name="estado">
+                        <option value="activo">Activo</option>
+                        <option value="inactivo">Inactivo</option>
+                    </select>
+                    @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
-    }
+
+            @Html.HiddenFor(model => model.detalles)
+        }
+
+        @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "medico")
+        {
+            @Html.HiddenFor(model => model.medico)
+            @Html.HiddenFor(model => model.paciente)
+            @Html.HiddenFor(model => model.fecha)
+            @Html.HiddenFor(model => model.estado)
+
+
+            <!-- detalles -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.detalles, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.detalles, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.detalles, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        }
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Guardar" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Volver a la lista", "Index")
 </div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/jquery.datetimepicker.full.min.js")
+    @Scripts.Render("~/Scripts/javaScript.js")
+
+}
+@section Content {
+    @Styles.Render("~/Content/jquery.datetimepicker.min.css")
+
 }

@@ -24,12 +24,20 @@ namespace CitasMedicasMVC
     [DisplayName("Paciente")]
     public Nullable<int> paciente { get; set; }
 
-    [DataType(DataType.Date)]
+    // [DataType(DataType.Time)]
     public Nullable<System.DateTime> fecha { get; set; }
         public string estado { get; set; }
-    public string detalles { get; set; }
+
     [DataType(DataType.MultilineText)]
+    public string detalles { get; set; }
+   
+
+
     public virtual usuarios usuarios { get; set; }
-        public virtual usuarios usuarios1 { get; set; }
-    }
+    public virtual usuarios usuarios1 { get; set; }
+
+  }
+
+ 
+
 }

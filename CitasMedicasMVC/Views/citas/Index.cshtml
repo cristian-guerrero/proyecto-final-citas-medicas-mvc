@@ -6,6 +6,7 @@
 
 <h2>Lista de Citas</h2>
 
+
 <p>
     @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "paciente")
     {
@@ -21,12 +22,8 @@
         <th>
             @Html.DisplayNameFor(model => model.estado)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.usuarios.nombres)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.usuarios1.nombres)
-        </th>
+        <th>Paciente</th>
+        <th>Medico</th>
         <th></th>
     </tr>
 
@@ -46,13 +43,15 @@
                 @Html.DisplayFor(modelItem => item.usuarios1.nombres)
             </td>
             <td>
-                @if (Session["user_profile"] != null && Session["user_profile"].ToString() != "administrador")
-                {@Html.ActionLink("Editar", "Edit", new { id = item.id })}
-                @Html.ActionLink("Editar", "Edit", new { id = item.id }) |
-                @Html.ActionLink("Detalles", "Details", new { id = item.id })
-                @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "paciente")
-                {@Html.ActionLink(" | Eliminar", "Delete", new { id = item.id })}
+  
 
+
+                @if (Session["user_profile"] != null && Session["user_profile"].ToString() != "administrador" && item.estado != "cancelado")
+                {@Html.ActionLink("Editar | ", "Edit", new { id = item.id })}
+                @Html.ActionLink("Detalles", "Details", new { id = item.id })
+                @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "paciente" &&  item.estado != "cancelado")
+                {@Html.ActionLink(" | Cancelar", "Delete", new { id = item.id })}
+                
             </td>
         </tr>
     }
