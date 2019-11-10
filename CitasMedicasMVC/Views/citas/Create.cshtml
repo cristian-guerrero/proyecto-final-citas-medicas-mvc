@@ -4,7 +4,7 @@
     ViewBag.Title = "Crear";
 }
 
-<h2>Crear</h2>
+<h2>Crear Cita</h2>
 
 
 @using (Html.BeginForm()) 
@@ -15,6 +15,7 @@
         <h4>Cita</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <!--
         <div class="form-group">
             @Html.LabelFor(model => model.id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -22,7 +23,7 @@
                 @Html.ValidationMessageFor(model => model.id, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        -->
         <div class="form-group">
             @Html.LabelFor(model => model.medico, "Medico", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

@@ -11,19 +11,25 @@ namespace CitasMedicasMVC
 {
     using System;
     using System.Collections.Generic;
+  using System.ComponentModel;
   using System.ComponentModel.DataAnnotations;
 
   public partial class citas
     {
         public int id { get; set; }
-        public Nullable<int> medico { get; set; }
-        public Nullable<int> paciente { get; set; }
+
+    [DisplayName("Medico")]
+    public Nullable<int> medico { get; set; }
+
+    [DisplayName("Paciente")]
+    public Nullable<int> paciente { get; set; }
 
     [DataType(DataType.Date)]
     public Nullable<System.DateTime> fecha { get; set; }
         public string estado { get; set; }
-    
-        public virtual usuarios usuarios { get; set; }
+    public string detalles { get; set; }
+    [DataType(DataType.MultilineText)]
+    public virtual usuarios usuarios { get; set; }
         public virtual usuarios usuarios1 { get; set; }
     }
 }

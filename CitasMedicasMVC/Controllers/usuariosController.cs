@@ -44,8 +44,8 @@ namespace CitasMedicasMVC.Controllers
         // GET: usuarios/Create
         public ActionResult Create()
         {
-      if (notSession())
-        return RedirectToAction("Index", "Login");
+      //if (notSession())
+      //   return RedirectToAction("Index", "Login");
 
       return View();
         }

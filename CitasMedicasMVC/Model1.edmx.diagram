@@ -5,7 +5,7 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="baf8edd295d9490f9db051ebf045ffcc" Name="Diagram1">
-        <EntityTypeShape EntityType="citas_medicasModel.citas" Width="1.5" PointX="3" PointY="1.25" />
+        <EntityTypeShape EntityType="citas_medicasModel.citas" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="citas_medicasModel.usuarios" Width="1.5" PointX="0.75" PointY="1" />
         <AssociationConnector Association="citas_medicasModel.fk_citas_usuarios_1" />
         <AssociationConnector Association="citas_medicasModel.fk_citas_usuarios_2" />

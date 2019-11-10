@@ -4,18 +4,21 @@
     ViewBag.Title = "Editar Cita";
 }
 
-<h2>Edit</h2>
+<h2>Editar Cita</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>citas</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.id)
+<div class="form-horizontal">
+    <h4>citas</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.id)
+
+    @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "paciente")
+    {
 
         <div class="form-group">
             @Html.LabelFor(model => model.medico, "medico", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -24,7 +27,7 @@
                 @Html.ValidationMessageFor(model => model.medico, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <!--
         <div class="form-group">
             @Html.LabelFor(model => model.paciente, "paciente", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -32,7 +35,7 @@
                 @Html.ValidationMessageFor(model => model.paciente, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        -->
         <div class="form-group">
             @Html.LabelFor(model => model.fecha, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -48,7 +51,19 @@
                 @Html.ValidationMessageFor(model => model.estado, "", new { @class = "text-danger" })
             </div>
         </div>
+    }
 
+    @if (Session["user_profile"] != null && Session["user_profile"].ToString() == "medico")
+    {
+        <!-- detalles -->
+        <div class="form-group">
+            @Html.LabelFor(model => model.detalles, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.detalles, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.detalles, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />

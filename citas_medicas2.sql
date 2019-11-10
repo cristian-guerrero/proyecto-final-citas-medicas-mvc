@@ -5,6 +5,8 @@ DROP  TABLE usuarios;
 
 CREATE TABLE [usuarios] (
 [id] int NOT NULL IDENTITY(1,1),
+
+[identificacion] varchar(255) NULL,
 [nombres] varchar(255) NULL,
 [apellidos] varchar(255) NULL,
 [perfil] varchar(255) NOT NULL 
